@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080914">
+<title>VYRO AI — Creative Video Studio</title>
+<style>
+:root{--bg:#080914;--panel:#11162a;--line:#293451;--muted:#9ba8c5;--blue:#3985ff;--purple:#9c4dff;--text:#f5f7ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.6 system-ui,Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #54dfff;outline-offset:3px}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 75% 8%,#4828a333,transparent 36%),radial-gradient(ellipse at 12% 40%,#174c8020,transparent 35%),#080914}
+nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:5;background:#080a16eF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}
+.logo{font-size:23px;font-weight:900;letter-spacing:-1px}.logo span{color:#7e8cff}
+.brand-icon{display:inline-grid;place-items:center;width:35px;height:35px;border-radius:11px;margin-right:8px;background:linear-gradient(135deg,#31e5ff,#3978ff,#a44cff)}
+.navlinks{display:flex;gap:25px;color:#bdc6df;font-size:13px}.navlinks a:hover{color:#72caff}
+.btn{border:1px solid var(--line);border-radius:11px;padding:11px 16px;background:#151b30;color:white;display:inline-flex;justify-content:center;align-items:center;gap:8px;transition:.25s}
+.btn:hover{transform:translateY(-2px);border-color:#648dff}
+.primary{border:0;background:linear-gradient(110deg,#287cff,#7151ff 70%,#ad4dff);font-weight:800;box-shadow:0 5px 25px #6448ff30}
+.hero{max-width:1250px;margin:auto;padding:65px 26px 50px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.eyebrow{display:inline-block;padding:7px 13px;border:1px solid #3985ff55;border-radius:30px;background:#14254a;color:#7de4ff;font-size:12px;font-weight:750}
+h1{font-size:clamp(39px,5vw,66px);line-height:1.09;letter-spacing:-2.7px;margin:22px 0}
+.gradient{background:linear-gradient(100deg,#55e5ff,#5c8bff,#c073ff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{max-width:490px;color:#aeb8d1;font-size:15px;line-height:1.9}
+.actions{display:flex;gap:11px;flex-wrap:wrap;margin:25px 0}
+.art{position:relative;min-height:350px;display:grid;place-items:center}
+.art img{width:86%;height:330px;object-fit:cover;border-radius:25px;border:1px solid #7387ff65;box-shadow:0 0 60px #593bff35;animation:float 6s ease-in-out infinite}
+.float{position:absolute;padding:13px 16px;border:1px solid #6a7dff70;background:#11172beF;border-radius:13px;box-shadow:0 10px 35px #0007;animation:float 5s ease-in-out infinite}
+.float.one{left:0;top:30px}.float.two{right:0;bottom:20px;animation-delay:-2s}
+.float small{display:block;color:var(--muted)}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes glow{50%{box-shadow:0 0 32px #754aff70}}
+@keyframes enter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.features{max-width:1200px;margin:0 auto 60px;padding:17px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;border:1px solid var(--line);border-radius:18px;background:#101426b8}
+.feature{display:flex;gap:10px;align-items:center;padding:8px}
+.ficon{width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;background:#182c52;color:#74d5ff;border-radius:12px;font-size:19px}
+.feature b{display:block;font-size:12px}.feature small{color:var(--muted);font-size:10px}
+.heading{text-align:center;padding:0 15px 25px}.heading h2{font-size:clamp(27px,4vw,40px);margin:0 0 6px}.heading p{color:var(--muted);margin:0}
+.workspace{max-width:1400px;margin:auto;padding:0 20px 65px;scroll-margin-top:85px}
+.studio{display:grid;grid-template-columns:165px minmax(280px,1fr) minmax(260px,1.05fr) 220px;border:1px solid #303b5c;border-radius:20px;overflow:hidden;background:#0b0f1e;box-shadow:0 25px 80px #0004}
+.sidebar,.editor,.result,.recent{padding:19px;min-width:0}
+.sidebar,.editor,.result{border-right:1px solid var(--line)}
+.sidebrand{font-size:17px;font-weight:850;margin-bottom:22px}
+.sidebtn{width:100%;padding:11px;border:0;border-radius:9px;text-align:left;color:#b4bfd8;background:transparent;margin:3px 0}
+.sidebtn:hover,.sidebtn.active{background:#172d52;color:#8cd5ff}
+.credits{margin-top:50px;border:1px solid var(--line);border-radius:12px;padding:12px;background:#11182b;font-size:11px;color:var(--muted)}
+.tabs{display:flex;gap:5px;background:#171e34;border-radius:10px;padding:4px}
+.tab{flex:1;padding:10px 4px;background:transparent;border:0;color:#9eaccb;border-radius:8px;font-size:11px}
+.tab.active{background:linear-gradient(100deg,#174d92,#3d368c);color:white}
+label{display:block;font-weight:750;font-size:12px;margin:16px 0 7px}
+textarea,.control{width:100%;border:1px solid #293656;border-radius:10px;background:#111a30;color:white;padding:12px}
+textarea{height:105px;resize:vertical;line-height:1.6}
+.hint{text-align:right;color:var(--muted);font-size:10px;margin-top:4px}
+.upload{border:1px dashed #536c9a;border-radius:10px;padding:14px;text-align:center;background:#10182b;color:#b8c7e5}
+.upload input{width:100%;margin-top:10px;font-size:11px}
+#imagePreview{display:none;max-width:100%;max-height:140px;object-fit:contain;margin:12px auto 0;border-radius:9px}
+.stylegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.style{border:1px solid #293451;border-radius:9px;overflow:hidden;background:#11182a;color:#d8e0f5;padding:0}
+.style img{display:block;width:100%;height:65px;object-fit:cover;opacity:.8}
+.style span{display:block;padding:6px 1px;font-size:10px}
+.style.active{border-color:#53a7ff;box-shadow:0 0 0 1px #53a7ff44}
+.style.active img{opacity:1}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ratios{display:flex;gap:5px}
+.ratio{flex:1;padding:9px 2px;background:#11182a;border:1px solid #293451;border-radius:8px;color:#bdc8e3;font-size:11px}
+.ratio.active{border-color:#4a9fff;color:#a9d8ff;background:#14284a}
+details{margin-top:15px;color:#c0cbe4;font-size:12px}
+summary{cursor:pointer}
+.advanced{display:grid;gap:8px}
+.generate{width:100%;padding:13px;margin-top:17px;animation:glow 3s infinite}
+.generate:disabled{opacity:.65;cursor:wait}
+.resulttitle{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.badge{font-size:10px;color:#83eac3;background:#12352f;border-radius:20px;padding:5px 8px}
+.video{width:100%;aspect-ratio:16/9;background:#10162a;border:1px solid #2b3b60;border-radius:12px;overflow:hidden;display:grid;place-items:center;text-align:center}
+.video img,.video video{width:100%;height:100%;object-fit:contain}
+.placeholder{padding:15px;color:#b0bdd7}.play{margin:0 auto 12px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#233a70;border:1px solid #8198ff;font-size:19px}
+.frames{display:flex;gap:7px;overflow:auto;margin:12px 0}
+.frame{flex:0 0 65px;height:45px;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:7px;background:#111a30}
+.frame img{width:100%;height:100%;object-fit:cover}
+.resultactions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.resultactions button{font-size:11px;padding:10px}
+.status{font-size:11px;color:#9daecc;margin-top:12px;overflow-wrap:anywhere}
+.recent h3{font-size:13px;margin:0 0 15px}
+.recentitem{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.recentitem img{width:58px;height:51px;object-fit:cover;border-radius:8px}
+.recentitem b{font-size:11px;display:block}.recentitem small{font-size:10px;color:var(--muted)}
+.footer{max-width:1200px;margin:0 auto;padding:25px 20px 40px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:11px}
+@media(max-width:1150px){.features{grid-template-columns:repeat(3,1fr);margin:0 18px 50px}.studio{grid-template-columns:145px 1fr 1fr}.recent{grid-column:1/-1;border-top:1px solid var(--line)}.recentlist{display:flex;gap:15px;flex-wrap:wrap}}
+@media(max-width:760px){nav{height:64px;padding:0 15px}.navlinks{display:none}.hero{grid-template-columns:1fr;padding:42px 20px;gap:20px}h1{letter-spacing:-1.5px}.art{min-height:270px}.art img{height:255px;width:85%}.features{grid-template-columns:repeat(2,1fr);padding:10px}.workspace{padding:0 10px 45px}.studio{grid-template-columns:1fr}.sidebar{display:none}.editor,.result{border-right:0;border-bottom:1px solid var(--line);padding:16px}.recent{grid-column:auto}.footer{padding:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav>
+<a href="#home" class="logo"><span class="brand-icon">V</span>VYRO <span>AI</span></a>
+<div class="navlinks"><a href="#home">Home</a><a href="#studio">Create</a><a href="#styles">Styles</a><a href="#features">Features</a></div>
+<a href="#studio" class="btn primary">Start Creating ↗</a>
+</nav>
+
+<section class="hero" id="home">
+<div>
+<div class="eyebrow">✦ YOUR CREATIVE AI STUDIO</div>
+<h1>Turn Ideas Into<br><span class="gradient">Living Stories.</span></h1>
+<p>Create cinematic videos from text prompts or images. Explore new worlds, animate your imagination and bring your ideas to life.</p>
+<div class="actions"><a class="btn primary" href="#studio">✦ Create Your Video →</a><a class="btn" href="#features">Explore Features ↓</a></div>
+<div style="color:#a9b6d2;font-size:12px">Text to Video · Image to Video · Creative Styles</div>
+</div>
+<div class="art">
+<img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=85" alt="Cosmic cinematic inspiration">
+<div class="float one">✧ <b>Creative Studio</b><small>Imagine beyond limits</small></div>
+<div class="float two">◈ <b>Visual Playground</b><small>Cinematic · Anime · 3D</small></div>
+</div>
+</section>
+
+<section class="features" id="features">
+<div class="feature"><div class="ficon">T</div><div><b>Text to Video</b><small>Prompts to scenes</small></div></div>
+<div class="feature"><div class="ficon">▧</div><div><b>Image to Video</b><small>Animate images</small></div></div>
+<div class="feature"><div class="ficon">✿</div><div><b>Creative Styles</b><small>Find your look</small></div></div>
+<div class="feature"><div class="ficon">▣</div><div><b>Aspect Ratios</b><small>16:9, 9:16, 1:1</small></div></div>
+<div class="feature"><div class="ficon">↗</div><div><b>Preview</b><small>Review your results</small></div></div>
+<div class="feature"><div class="ficon">◇</div><div><b>Creator Studio</b><small>Your creative space</small></div></div>
+</section>
+
+<section id="styles">
+<div class="heading"><h2>Your imagination. <span class="gradient">Your style.</span></h2><p>Create a visual world that feels uniquely yours.</p></div>
+</section>
+
+<section class="workspace" id="studio">
+<div class="studio">
+<aside class="sidebar">
+<div class="sidebrand">◈ VYRO AI</div>
+<button class="sidebtn active" data-side="Create">✦ &nbsp; Create</button>
+<button class="sidebtn" data-side="My Videos">▣ &nbsp; My Videos</button>
+<button class="sidebtn" data-side="Templates">▧ &nbsp; Templates</button>
+<button class="sidebtn" data-side="Settings">⚙ &nbsp; Settings</button>
+<div class="credits"><b>✦ Creator Studio</b><p>Preview the creative tools.</p>Connect an AI model for real video generation.</div>
+</aside>
+
+<section class="editor">
+<div class="tabs"><button class="tab active" id="textTab" type="button">T &nbsp; Text to Video</button><button class="tab" id="imageTab" type="button">▧ &nbsp; Image to Video</button></div>
+<label for="prompt">Describe Your Vision</label>
+<textarea id="prompt" maxlength="1200" placeholder="A futuristic city floating above the clouds at golden hour, cinematic camera movement..."></textarea>
+<div class="hint"><span id="count">0</span> / 1200 characters</div>
+
+<div id="uploadArea" hidden>
+<label for="file">Starting Image</label>
+<div class="upload">Choose an image to animate<br><small>PNG, JPG or WEBP · Maximum 8 MB</small>
+<input id="file" type="file" accept="image/png,image/jpeg,image/webp">
+<img id="imagePreview" alt="Uploaded image preview">
+</div>
+</div>
+
+<label>Visual Style</label>
+<div class="stylegrid" id="styleGrid">
+<button class="style active" data-style="Cinematic"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=220&q=75" alt="Night sky"><span>Cinematic</span></button>
+<button class="style" data-style="Anime"><img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=220&q=75" alt="Anime art reference"><span>Anime</span></button>
+<button class="style" data-style="3D"><img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=220&q=75" alt="Digital art"><span>3D Art</span></button>
+<button class="style" data-style="Realistic"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=220&q=75" alt="Realistic landscape"><span>Realistic</span></button>
+<button class="style" data-style="Fantasy"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=220&q=75" alt="Fantasy forest"><span>Fantasy</span></button>
+<button class="style" data-style="Sci-Fi"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=220&q=75" alt="Planet Earth"><span>Sci-Fi</span></button>
+</div>
+
+<div class="two">
+<div><label for="duration">Video Duration</label>
+<select class="control" id="duration">
+<option value="5">5 Seconds</option>
+<option value="10">10 Seconds</option>
+<option value="30">30 Seconds</option>
+<option value="60">1 Minute</option>
+<option value="300">5 Minutes</option>
+<option value="600">10 Minutes</option>
+<option value="900">15 Minutes</option>
+<option value="1800">30 Minutes</option>
+</select></div>
+<div><label for="quality">Quality</label>
+<select class="control" id="quality"><option value="standard">Standard</option><option value="hd">HD (if supported)</option></select></div>
+</div>
+
+<label>Aspect Ratio</label>
+<div class="ratios">
+<button class="ratio active" data-ratio="16:9">▰ 16:9</button>
+<button class="ratio" data-ratio="9:16">▯ 9:16</button>
+<button class="ratio" data-ratio="1:1">□ 1:1</button>
+</div>
+
+<details><summary>⚙ Advanced Settings</summary><div class="advanced">
+<label for="negative">Negative Prompt</label><input class="control" id="negative" maxlength="500" placeholder="Blur, distorted details...">
+<label for="camera">Camera Movement</label><select class="control" id="camera"><option>Auto</option><option>Slow zoom in</option><option>Pan left</option><option>Pan right</option><option>Tracking shot</option></select>
+</div></details>
+
+<button class="btn primary generate" id="generate">✦ &nbsp; Generate Video →</button>
+<div class="status" id="toast" role="status">Preview mode · AI model not connected.</div>
+</section>
+
+<section class="result">
+<div class="resulttitle"><b>Your Canvas</b><span class="badge">PREVIEW</span></div>
+<div class="video" id="videoBox"><div class="placeholder"><div class="play">▶</div><b>Your next creation starts here</b><p style="font-size:11px">Choose a mode and describe your scene.</p></div></div>
+<div class="frames">
+<button class="frame" title="Cosmic reference"><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=160&q=70" alt="Cosmos"></button>
+<button class="frame" title="Mountain reference"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=160&q=70" alt="Mountains"></button>
+<button class="frame" title="Ocean reference"><img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=160&q=70" alt="Ocean"></button>
+<button class="frame" title="City reference"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=160&q=70" alt="Night sky"></button>
+</div>
+<div class="resultactions"><button class="btn" id="download" disabled>↓ Download Video</button><button class="btn" id="copyPrompt">▣ Copy Prompt</button></div>
+<div class="status" id="status">Ready to create.</div>
+</section>
+
+<aside class="recent">
+<h3>Creative Inspiration ✧</h3>
+<div class="recentitem"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=160&q=75" alt="Night sky"><div><b>Neon Dreams</b><small>Cinematic reference</small></div></div>
+<div class="recentitem"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=160&q=75" alt="Mountains"><div><b>Beyond the Peaks</b><small>Fantasy reference</small></div></div>
+<div class="recentitem"><img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=160&q=75" alt="Ocean"><div><b>Ocean Motion</b><small>Realistic reference</small></div></div>
+<div class="recentitem"><img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=160&q=75" alt="Stars"><div><b>Cosmic Journey</b><small>Sci-Fi reference</small></div></div>
+<p style="font-size:10px;color:#8796b7">Reference images are examples, not generated videos.</p>
+</aside>
+</div>
+</section>
+
+<footer class="footer"><b>◈ VYRO AI</b><span>Imagine It. Generate It.</span><span>Creator Studio · 2026</span></footer>
+
+<script>
+let mode="text",selectedStyle="Cinematic",selectedRatio="16:9",imageFile=null;
+let imageUrl=null,generatedVideoUrl=null;
+const $=id=>document.getElementById(id);
+
+function setMode(next){
+ mode=next;
+ $("textTab").classList.toggle("active",mode==="text");
+ $("imageTab").classList.toggle("active",mode==="image");
+ $("uploadArea").hidden=mode!=="image";
+ $("toast").textContent=mode==="image"?"Image mode selected. Upload a starting image.":"Text mode selected. Describe your scene.";
+}
+$("textTab").onclick=()=>setMode("text");
+$("imageTab").onclick=()=>setMode("image");
+$("prompt").addEventListener("input",()=>$("count").textContent=$("prompt").value.length);
+
+document.querySelectorAll(".style").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".style").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");selectedStyle=button.dataset.style;
+  $("toast").textContent="Selected style: "+selectedStyle;
+ });
+});
+document.querySelectorAll(".ratio").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".ratio").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");selectedRatio=button.dataset.ratio;
+  $("toast").textContent="Aspect ratio: "+selectedRatio;
+ });
+});
+$("file").addEventListener("change",event=>{
+ const file=event.target.files[0];if(!file)return;
+ if(file.size>8*1024*1024){alert("Choose an image under 8 MB.");event.target.value="";return;}
+ if(!["image/png","image/jpeg","image/webp"].includes(file.type)){alert("Use PNG, JPG or WEBP.");event.target.value="";return;}
+ imageFile=file;
+ if(imageUrl)URL.revokeObjectURL(imageUrl);
+ imageUrl=URL.createObjectURL(file);
+ $("imagePreview").src=imageUrl;$("imagePreview").style.display="block";
+ $("toast").textContent="Image selected: "+file.name;
+});
+$("copyPrompt").addEventListener("click",async()=>{
+ const prompt=$("prompt").value.trim();
+ if(!prompt){$("status").textContent="Enter a prompt first.";return;}
+ try{await navigator.clipboard.writeText(prompt);$("status").textContent="Prompt copied."}
+ catch(e){$("status").textContent="Clipboard unavailable. Copy the prompt manually."}
+});
+document.querySelectorAll(".sidebtn").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".sidebtn").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  if(button.dataset.side==="Create")$("studio").scrollIntoView({behavior:"smooth"});
+  else $("toast").textContent=button.dataset.side+" will be added in a future version.";
+ });
+});
+$("generate").addEventListener("click",()=>{
+ const prompt=$("prompt").value.trim();
+ if(!prompt){$("status").textContent="Please describe your video first.";$("prompt").focus();return;}
+ if(mode==="image"&&!imageFile){$("status").textContent="Please upload an image first.";return;}
+ const seconds=Number($("duration").value);
+ const durationLabel=seconds<60?seconds+" seconds":(seconds/60)+" minute(s)";
+ $("status").textContent="Demo mode: your request is prepared, but no AI video model is connected.";
+ $("toast").textContent="Selected: "+durationLabel+" · "+selectedStyle+" · "+selectedRatio+".";
+});
+$("download").addEventListener("click",()=>{
+ if(!generatedVideoUrl)return;
+ const a=document.createElement("a");a.href=generatedVideoUrl;a.download="vyro-ai-video.mp4";a.click();
+});
+</script>
+</body>
+</html>
